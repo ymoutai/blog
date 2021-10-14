@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-// img
-import LogoReact from '../../assets/react.jpg'
-import LogoNotification from '../../assets/text_oshirase.png'
+import axios from 'axios';
 
 const BlogStyle = styled.div `
   margin: 30px auto;
@@ -25,37 +22,27 @@ const BlogStyle = styled.div `
   }
 `;
 
-const BlogContent1 = () => {
-  return (
-    <BlogStyle>
-      <Link to="/blog/1">
-        <div>
-          <img src={LogoReact} alt="" />
-        </div>
-        <p><span>Reactの勉強はじめました。</span></p>
-      </Link>
-    </BlogStyle>
-  )
-}
-
-const BlogContent2 = () => {
-  return (
-    <BlogStyle>
-      <Link to="/blog/2">
-        <div>
-          <img src={LogoNotification} alt="" />
-        </div>
-        <p><sapn>ブログのお知らせ</sapn></p>
-      </Link>
-    </BlogStyle>
-  );
-}
+// const BlogContent1 = () => {
+//   return (
+//     <BlogStyle>
+//       <Link to="/blog/1">
+//         <div>
+//           <img src={LogoReact} alt="" />
+//         </div>
+//         <p><span>Reactの勉強はじめました。</span></p>
+//       </Link>
+//     </BlogStyle>
+//   )
+// }
 
 const Blog = () => {
+  let blogs = [];
+  axios.get('http://localhost:3000/data.json').then(response => {
+    blogs = response.data;
+  });
   return (
     <div>
-      <BlogContent1 />
-      <BlogContent2 />
+      
     </div>
   );
 }
