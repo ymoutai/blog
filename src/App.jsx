@@ -11,10 +11,6 @@ import Top from './containers/Top';
 import Profile from './containers/Profile';
 import NotFound from './containers/NotFound';
 
-// test
-import Blog1 from './blog/Blog1';
-import Blog2 from './blog/Blog2';
-
 function App() {
   return (
     <div className="App">
@@ -28,14 +24,6 @@ function App() {
 
           <Route path="/profile">
             <Profile />
-          </Route>
-
-          <Route path="/blog/1">
-            <Blog1 />
-          </Route>
-
-          <Route path="/blog/2">
-            <Blog2 />
           </Route>
 
           <Route>

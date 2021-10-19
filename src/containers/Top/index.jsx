@@ -1,7 +1,7 @@
-import React from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import React, { useState, useEffect } from "react";
 
 const BlogStyle = styled.div `
   margin: 30px auto;
@@ -22,29 +22,34 @@ const BlogStyle = styled.div `
   }
 `;
 
-// const BlogContent1 = () => {
-//   return (
-//     <BlogStyle>
-//       <Link to="/blog/1">
-//         <div>
-//           <img src={LogoReact} alt="" />
-//         </div>
-//         <p><span>Reactの勉強はじめました。</span></p>
-//       </Link>
-//     </BlogStyle>
-//   )
-// }
+const GetDataJson = async() => {
+  try {
+    const result = await axios.get('http://localhost:3000/data.json');
+    return result.data;
+  } catch(error) {
 
-const Blog = () => {
-  let blogs = [];
-  axios.get('http://localhost:3000/data.json').then(response => {
-    blogs = response.data;
-  });
+  }
+}
+
+const Top = () => {
+  let [blog_items, setBlogs] = useState([]);
+  
+  useEffect(async() => {
+    let blogs = await GetDataJson();
+    setBlogs(blogs);
+  }, []);
+
+  // const data_json = GetDataJson();
   return (
     <div>
-      
+        <ul>{blog_items.map((data, index) => 
+          <div>
+            <li key={index}><h1>{data.title}</h1></li>
+            <li key={index}><p>{data.html}</p></li>
+          </div>)}
+        </ul>
     </div>
   );
 }
 
-export default Blog;
+export default Top;
